@@ -29,6 +29,7 @@ let data_values = { // Taken from the actual game, that I saw via a wiki page ii
 	coin_8_max: 3456,
 };
 let menu_popup,popup_text,card_back,confirm_option;
+let logging_key;
 
 
 
@@ -38,6 +39,7 @@ function loading() {
 	updateTimer()
 	document.addEventListener("contextmenu", right_click)
 	document.addEventListener("click", left_click)
+	document.addEventListener('keydown', logKey);
 }
 
 function size(new_value_one,new_value_two) {
@@ -106,6 +108,11 @@ function grid_reset() {
 			new_box.appendChild(new_card);
 			let card_back = document.createElement('div');
 			card_back.addEventListener("click", play)
+			card_back.addEventListener("mouseover", function(e) {
+				box_selected = e.target.parentElement
+				hovering(true)
+			} )
+			card_back.addEventListener("mouseout", hovering(false))
 			card_back.className = "card_back"
 			new_box.appendChild(card_back);
 			//let new_background = document.createElement('div'); // needed for bg color before flip
@@ -170,7 +177,7 @@ function grid_generation() {
 	}
 	for (var i = 0; i < grid_hidden.length; i++) {
 		for (var j = 0; j < grid_hidden[i].length; j++) {
-			//grid_html.getElementsByClassName("rows")[i].getElementsByClassName("box")[j].getElementsByClassName('card_front')[0].innerText = grid_hidden[i][j]
+			//grid_html.getElementsByClassName("rows")[i].getElementsByClassName("box")[j].getElementsByClassName('card_front')[0].innerText = grid_hidden[i][j] // doesn't really matter
 		}
 	}
 	grid_check() // checking if the grid respects difficulty and score restrictions
@@ -321,7 +328,7 @@ function edit_note(note_number) {
 		new_note.name = note_number
 		new_note.className = "box_note"
 		new_note.classList.add(note_number) // for checking if already exists cause GetEltByName broke
-		console.log(box_selected)
+		//console.log(box_selected)
 		card_back = box_selected.getElementsByClassName('card_back')[0]
 		card_back.appendChild(new_note)
 		if (note_number==0) {
@@ -389,6 +396,19 @@ function no() {
 	popup_text = document.getElementsByClassName("popup_text")[0]
 	menu_popup.style.display = "none"
 	replay_quit_button.innerText = "Start level " + current_level
+}
+
+function hovering(in_or_out) {
+	//console.log("you are in/out")
+	logging_key = in_or_out
+}
+
+function logKey(move) {
+	if (logging_key) {
+		if ((move.key=="0")||(move.key=="1")||(move.key=="2")||(move.key=="3")) {
+			edit_note(move.key) 
+		}
+	}
 }
 
 function right_click(e) {
