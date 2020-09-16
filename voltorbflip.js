@@ -541,6 +541,8 @@ function end_game(win_or_loss) {
 			}
 		}
 	}
+	menu_popup = document.getElementsByClassName("menu_popup")[0]
+	popup_text = document.getElementsByClassName("popup_text")[0]
 	timer_stop = true
 	if (win_or_loss=="quit") {
 		popup_text.innerHTML = "You quit to keep your current coins, which got added to your total balance."
