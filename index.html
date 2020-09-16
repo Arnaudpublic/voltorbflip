@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Voltorbflip</title>
+	<script src="voltorbflip.js"></script>
+	<link rel="stylesheet" type="text/css" href="voltorbflip.css">
+	<link rel="icon" href="Images/Website_icon.png">
+</head>
+<body onload="loading()">
+
+	<audio class="playing_audio">
+		<source src="Sounds/GameOST.mp3" type="audio/mp3" id="background_music">
+	</audio>
+	<audio class="playing_audio">
+		<source src="Sounds/Game_Over.ogg" type="audio/ogg">
+	</audio>
+	<audio class="playing_audio">
+		<source src="Sounds/CardFlip.mp3" type="audio/mp3">
+	</audio>
+	<audio class="playing_audio">
+		<source src="Sounds/WinSound.mp3" type="audio/mp3">
+	</audio>
+	<audio class="playing_audio">
+		<source src="Sounds/LossSound.mp3" type="audio/mp3">
+	</audio>
+	<audio class="playing_audio">
+		<source src="Sounds/ConfirmSound.mp3" type="audio/mp3">
+	</audio>
+
+	<div class="whole_page">
+		<h2>Let's play Voltorbflip!</h2>
+		<div class="grid_container">
+			<div class="menu_popup">
+				<div class="popup">
+					<h3 class="popup_title">Game over!</h3>
+					<p class="popup_text">You lost so you didn't gain any coins. Do you want to restart?</p>
+					<div class="buttons_yes_no">
+						<button class="button_yes" onclick="yes()">Start level 1</button>
+						<button class="button_no" onclick="no()">See the grid</button>
+					</div>
+				</div>
+			</div>
+			<div class="numbers">
+				<div class="timer">Game didn't start yet, click on a box to play.</div>
+				<div class="level">Level 1</div>
+				<div class="top_half">
+					<div class="score">Current game score: 0</div><br>
+					<div class="score">Total score: 0</div>
+				</div>
+			</div>
+			<table class="grid"></table>
+		</div>
+
+		<div class="howtoplay">
+			<h2>How to play</h2>
+		    <ul>
+		        <li>Every box contains a value, from 0 to 3</li>
+		        <li>Each time you discover a new number, your score gets multiplied by it (first one is multiplied by 1 of course)</li>
+		        <li>Game ends if you click on a 0 (=voltorb) or uncover all 2s/3s. Quitting game makes you keep your current score but counts as loss</li>
+		        <li>If you win the game by discovering all 2 and 3, you get to the next level. If you fail too many times, you can fall to lower levels.</li>
+		        <li>Each level is more difficult than the previous, but you also get more points. There is a maximum of 8 levels.</li>
+		        <li>Numbers at the end shows the sum of all numbers in the row/column (green value), and how much zeroes there are (red value).</li>
+		        <li>Just click on a box to show it. If you want to mark the box like a draft, right click to open the memo.</li>
+		    </ul>
+			<div class="actions">
+				<h3>Change the music</h3>
+				<select id="music_choice" onchange="edit_music()">
+				    <option value="GameOST">Default</option>
+				    <option value="GameOST_remix1">GlitchxCity remix</option>
+				    <option value="GameOST_remix2">Zame remix</option>
+				    <option value="GameOST_remix3">Retrospecter remix</option>
+				    <option value="None">None</option>
+			  	</select>
+				<!--<div class="actions">
+					<h3>Change grid size</h3>
+					<div class="wanted">
+						<input type="number" id="rows_wanted" min=3 value="5">
+						<label for="rows_wanted">Amount of rows wanted</label>
+					</div>
+					<div class="wanted">
+						<input type="number" id="columns_wanted" min=3 value="5">
+						<label for="columns_wanted">Amount of columns wanted</label>
+					</div>
+				</div>-->
+			</div>
+		</div>
+
+		<!--<div class="miscellany">
+		</div>-->
+
+		<div class="context_menu">
+			<div class="context_option" onclick="edit_note(0)">0</div>
+			<div class="context_option" onclick="edit_note(1)">1</div>
+			<div class="context_option" onclick="edit_note(2)">2</div>
+			<div class="context_option" onclick="edit_note(3)">3</div>
+		</div>
+
+		<div class="credits">
+				<p>
+				Website done and maintained by Arnaud#0865, contact via discord for any feedback <br><br>
+				Credits to the original Voltorbflip game in Soulsilver
+				</p>
+		</div>
+	</div>
+</body>
+</html>
