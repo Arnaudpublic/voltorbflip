@@ -571,11 +571,11 @@ function end_game(win_or_loss) {
 			current_level--
 			level_loss = true
 		}
+		if (current_level == 1) {
+			amount_of_loss = 0
+		}
 		if (level_loss) {
 			popup_text.innerHTML += "<br>You went down to level " + current_level + "."
-			if (current_level == 1) {
-				amount_of_loss = 0
-			}
 		}
 	}
 	total_score += game_score
