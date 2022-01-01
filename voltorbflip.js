@@ -576,9 +576,8 @@ function end_game(win_or_loss) {
 		}
 		if (current_level == 1) {
 			amount_of_loss = 0
-		} else {
-			console.log(current_level,amount_of_loss)
 		}
+		console.log(current_level,amount_of_loss)
 	}
 	total_score += game_score
 	game_score = 0
