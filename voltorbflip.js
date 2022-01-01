@@ -565,14 +565,14 @@ function end_game(win_or_loss) {
 		game_win = true
 	}
 	var level_loss = false
+	if (current_level == 1) {
+		amount_of_loss = 0
+	}
 	if (!game_win) {
 		amount_of_loss++
 		while ((5 - current_level - amount_of_loss < 0)&&(current_level>1)) {
 			current_level--
 			level_loss = true
-		}
-		if (current_level == 1) {
-			amount_of_loss = 0
 		}
 		if (level_loss) {
 			popup_text.innerHTML += "<br>You went down to level " + current_level + "."
