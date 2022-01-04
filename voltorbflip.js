@@ -40,6 +40,14 @@ function loading() {
 	document.addEventListener("contextmenu", right_click)
 	document.addEventListener("click", left_click)
 	document.addEventListener('keydown', logKey);
+	if (get_cookie("level")!="") {
+		current_level = parseInt(get_cookie("level"))
+		document.getElementsByClassName("level")[0].innerText = "Level " + current_level
+	}
+	if (get_cookie("score")!="") {
+		total_score = parseInt(get_cookie("score"))
+		document.getElementsByClassName("score")[1].innerText = "Total score: " + total_score
+	}
 }
 
 function size(new_value_one,new_value_two) {
@@ -148,7 +156,6 @@ function grid_reset() {
 function grid_generation() {
 	// bomb generation
 	timer_stop = false
-	placing_flag = false;
 
 	for (var i = 0; i < grid_hidden.length; i++) {
 		for (var j = 0; j < grid_hidden[i].length; j++) {
@@ -263,7 +270,7 @@ function grid_check() {
 		if ((line_without_bomb==0)&&(current_level==1)) { // let's be nice for lvl 1
 			return grid_reset()
 		}	
-		console.log(min_value + " < " + max_score + " < " + max_value)
+		// console.log(min_value + " < " + max_score + " < " + max_value)
 		row_info_add() // moving on
 	}
 }
@@ -579,6 +586,8 @@ function end_game(win_or_loss) {
 		}
 	}
 	total_score += game_score
+	set_cookie("score",total_score)
+	set_cookie("level",current_level)
 	game_score = 0
 	document.getElementsByClassName("score")[0].innerText = "Current game score: " + game_score
 	document.getElementsByClassName("score")[1].innerText = "Total score: " + total_score
@@ -600,4 +609,22 @@ function edit_music() {
 		document.getElementsByClassName('playing_audio')[0].play()
 		document.getElementsByClassName('playing_audio')[0].setAttribute('src',"Sounds/" + music_choice + ".mp3")
 	}
+}
+
+function set_cookie(key,data) {
+	document.cookie = key + "=" + data + "; SameSite=Lax"
+}
+
+function get_cookie(key) {
+	// This function assumes that cookies are stored in a simple way and always include a "="
+	data = ""
+	cookies = decodeURIComponent(document.cookie)
+	cookies = cookies.split(";")
+	for (var i = cookies.length - 1; i >= 0; i--) {
+		if (cookies[i].includes(key)) {
+			data = cookies[i].split("=")[1]
+		}
+	}
+	//console.log(`For ${key}, I found ${data}`)
+	return data
 }
